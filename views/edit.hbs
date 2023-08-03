@@ -1,0 +1,8 @@
+<p>редактирование родукта {{prod.name}}</p>
+
+<form action="/prod/edit" method="POST">
+  <span>name :</span><input type="text" name="name" value="{{prod.name}}"><br /><br />
+  <span>cost :</span><input type="text" name="cost" value="{{prod.cost}}"><br /><br />
+  <span>rest :</span><input type="text" name="rest" value="{{prod.rest}}"><br /><br />
+  <button type="submit">изменить</button>
+</form>

@@ -1,4 +1,4 @@
-// ⊗ndMgDPAF - 1, 2
+// ⊗ndMgDPEF 1, 2, 3, 4
 
 import mongodb from 'mongodb';
 import express from 'express';
@@ -93,6 +93,36 @@ try {
 		req.flash('prod', 'вы добавили продукт: ' + prod.name);
 		res.redirect(301, `/prods`);
 
+	})
+
+	app.get('/prod/edit/:name', async function (req, res) {
+		let name = req.params.name;
+
+
+		let prod = await coll.findOne({ name: name });
+
+		console.log(prod);
+
+		if (prod) {
+			res.render('edit', { prod });
+
+		} else {
+			res.render('404');
+		}
+
+	})
+
+	app.post('/prod/edit', async function (req, res) {
+
+		let prod = {
+			name: req.body.name,
+			cost: req.body.cost,
+			rest: req.body.rest,
+		}
+
+		await coll.updateOne({ name: prod.name }, { $set: prod });
+		req.flash('prod', 'вы изменили продукт: ' + prod.name);
+		res.redirect(301, `/prods`);
 	})
 
 } catch (err) {
